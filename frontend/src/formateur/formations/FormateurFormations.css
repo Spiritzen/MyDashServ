@@ -1,0 +1,74 @@
+.ff-wrap { padding: 1.25rem; }
+.ff-head h1 { margin: 0; font-size: 1.6rem; }
+.ff-muted { opacity: 0.65; margin-top: 0.25rem; }
+
+.ff-tabs { display: flex; gap: 0.5rem; margin: 1rem 0; }
+.ff-tab {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  color: inherit;
+  cursor: pointer;
+}
+.ff-tab.is-active {
+  border-color: rgba(0,255,200,0.35);
+  box-shadow: 0 0 0 2px rgba(0,255,200,0.10) inset;
+}
+
+.ff-alert {
+  padding: 0.8rem 1rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255,120,120,0.35);
+  background: rgba(255,120,120,0.08);
+  margin: 0.75rem 0;
+}
+
+.ff-loading { opacity: 0.75; padding: 0.75rem 0; }
+
+.ff-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(0,0,0,0.22);
+  overflow: hidden;
+}
+
+.ff-table { width: 100%; border-collapse: collapse; }
+.ff-table th, .ff-table td { padding: 0.85rem 0.9rem; }
+.ff-table thead th {
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.ff-table tbody tr:not(:last-child) td {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.ff-strong { font-weight: 600; }
+.ff-empty { opacity: 0.7; padding: 1.2rem; text-align: center; }
+
+.ff-actions-col { width: 220px; }
+.ff-actions { display: flex; gap: 0.5rem; align-items: center; }
+
+.ff-btn {
+  padding: 0.45rem 0.7rem;
+  border-radius: 0.7rem;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.12);
+  color: inherit;
+  cursor: pointer;
+}
+.ff-btn--ok { border-color: rgba(0,255,200,0.25); }
+.ff-btn--ko { border-color: rgba(255,120,120,0.25); }
+
+.ff-badge {
+  display: inline-block;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.14);
+  font-size: 0.85rem;
+  opacity: 0.95;
+}
+.ff-badge--ok { border-color: rgba(0,255,200,0.35); }
+.ff-badge--warn { border-color: rgba(255,220,120,0.35); }
+.ff-badge--ko { border-color: rgba(255,120,120,0.35); }

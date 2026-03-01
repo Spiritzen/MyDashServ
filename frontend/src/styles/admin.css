@@ -1,0 +1,119 @@
+/* Sidebar */
+.admin-side__who{
+  margin: 6px 0 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(42,209,195,.10);         /* léger voile accent */
+  border: 1px solid var(--stroke);
+}
+.admin-side__who small{
+  display:block; color: var(--muted); font-size: 12px; letter-spacing: .3px;
+  margin-bottom: 4px;
+}
+.admin-side__name{
+  font-weight: 800;
+  color: var(--text);
+  text-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+
+.admin-side { display: flex; flex-direction: column; gap: 12px; }
+.admin-side__brand { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.admin-side__logo { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px;
+  background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
+.admin-side__title { font-weight: 600; }
+
+.admin-side__menu { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.admin-side__link {
+  display: block; padding: 10px 12px; border-radius: 12px;
+  color: var(--text, #e8f3f1); text-decoration: none;
+  background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+}
+.admin-side__link:hover { background: rgba(255,255,255,0.06); }
+.admin-side__link.is-active { outline: 2px solid var(--accent, #27e0c0); }
+
+/* Dashboard */
+.admin-dash { display: grid; gap: 16px; }
+.admin-dash__head h1 { margin: 0; }
+.admin-kpi-grid { display: grid; gap: 12px; grid-template-columns: repeat(4, minmax(0,1fr)); }
+
+/*Sessions*/
+.admin-page__head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px }
+.panel{ background:var(--panel); border:1px solid var(--stroke); border-radius:16px; padding:14px; box-shadow:var(--shadow) }
+
+.filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px }
+.input{ background:var(--card); border:1px solid var(--stroke); border-radius:10px; padding:8px 10px; color:var(--text) }
+
+.table-wrap{ overflow:auto }
+.table{ width:100%; border-collapse:collapse; }
+.table th,.table td{ padding:10px; border-bottom:1px solid var(--stroke) }
+.tbl-actions{ display:flex; gap:6px; justify-content:flex-end }
+
+.bdg{ padding:4px 8px; border-radius:999px; font-size:12px; border:1px solid var(--stroke); background: rgba(255,255,255,.04) }
+.bdg--ok{ background: rgba(61,192,140,.15); border-color: rgba(61,192,140,.35) }
+.bdg--plan{ background: rgba(42,209,195,.15); border-color: rgba(42,209,195,.35) }
+.bdg--ko{ background: rgba(255,99,99,.15); border-color: rgba(255,99,99,.35) }
+/* Pagination sous le tableau (Sessions) */
+.sessions-pager{
+  display:flex;
+  align-items:center;
+  justify-content:center;   /* centré */
+  gap:10px;
+  margin-top:12px;
+  flex-wrap:wrap;           /* évite le débordement */
+}
+
+.sessions-pager__size{
+  margin-left:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.sessions-pager select{
+  background: var(--card);
+  border: 1px solid var(--stroke);
+  border-radius: 10px;
+  padding: 6px 10px;
+  color: var(--text);
+}
+/* ✅ Fix global : options lisibles dans les selects (dark UI) */
+select,
+select.input {
+  color: #ffffff;
+  background: rgba(20,184,166,.18);
+  border: 1px solid rgba(20,184,166,.35);
+}
+
+/* IMPORTANT : la liste ouverte */
+select option {
+  background: #ffffff;  /* fond clair */
+  color: #111827;       /* texte noir */
+}
+
+/* Option sélectionnée (certains navigateurs) */
+select option:checked {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+
+@media (max-width: 1100px) { .admin-kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+
+@media (max-width: 640px) { .admin-kpi-grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px; padding: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+.kpi { display: grid; gap: 4px; }
+.kpi__label { font-size: 0.95rem; opacity: .85; }
+.kpi__value { font-size: 1.6rem; font-weight: 700; letter-spacing: 0.3px; }
+.kpi__hint { font-size: 0.85rem; }
+
+.admin-dash__panel h2 { margin-top: 0; }
+.list--striped { margin: 0; padding: 0; list-style: none; }
+.list--striped li { padding: 10px 0; border-top: 1px dashed rgba(255,255,255,0.1); }
+.list--striped li:first-child { border-top: 0; }

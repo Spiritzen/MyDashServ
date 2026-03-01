@@ -1,0 +1,9 @@
+package com.afci.training.planning;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+public class GeneratePassword {
+  public static void main(String[] args) {
+    System.out.println(new BCryptPasswordEncoder().encode("Gestionnaire123!"));
+  }
+}

@@ -1,0 +1,19 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GitHub">
+  <title>GitHub</title>
+  <defs>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(128 128) rotate(90) scale(128)">
+      <stop offset="0" stop-color="white" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- cercle de fond légèrement lumineux (optionnel) -->
+  <circle cx="128" cy="128" r="124" fill="url(#glow)" opacity="0.15"/>
+  <!-- logo github blanc -->
+  <path fill="#FFFFFF" d="M128 24C71.4 24 26 69.4 26 126c0 45.2 29.3 83.5 69.9 97.1c5.1.9 7-2.2 7-4.9
+    c0-2.4-.1-8.7-.1-17.1c-28.4 6.2-34.4-13.7-34.4-13.7c-4.7-12.1-11.5-15.3-11.5-15.3c-9.4-6.4.7-6.3.7-6.3
+    c10.4.7 15.9 10.7 15.9 10.7c9.3 15.9 24.3 11.3 30.2 8.7c.9-6.7 3.6-11.3 6.6-13.9c-22.7-2.6-46.6-11.4-46.6-50.8
+    c0-11.2 4-20.4 10.6-27.6c-1.1-2.6-4.6-13.1 1-27.3c0 0 8.6-2.7 28.2 10.5c8.2-2.3 17-3.5 25.8-3.5s17.6 1.2 25.8 3.5
+    c19.6-13.2 28.2-10.5 28.2-10.5c5.7 14.2 2.2 24.7 1.1 27.3c6.6 7.2 10.6 16.4 10.6 27.6c0 39.5-23.9 48.1-46.7 50.7
+    c3.7 3.2 7 9.5 7 19.2c0 13.9-.1 25.1-.1 28.5c0 2.7 1.9 5.9 7.1 4.9C200.8 209.4 230 171.2 230 126
+    C230 69.4 184.6 24 128 24z"/>
+</svg>

@@ -1,0 +1,88 @@
+/* src/components/admin/affectations/AffectationsFilter.css */
+
+.af-filters {
+  margin-bottom: 12px;
+  padding: 12px;
+}
+
+/* Grille comme Sessions : 4 blocs, responsive */
+.af-filters__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+
+/* Champ */
+.af-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.af-label {
+  font-weight: 700;
+  font-size: 0.92rem;
+  opacity: 0.92;
+}
+
+/* Input dark cohérent */
+.af-input {
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(0,0,0,0.18);
+  color: inherit;
+  outline: none;
+  min-width: 0;
+}
+
+.af-input::placeholder {
+  color: rgba(255,255,255,0.55);
+}
+
+.af-input:focus {
+  border-color: rgba(90,255,210,0.35);
+  box-shadow: 0 0 0 3px rgba(90,255,210,0.10);
+}
+
+/* Actions */
+.af-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.af-reset {
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .af-filters__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .af-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 520px) {
+  .af-filters__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .af-actions {
+    grid-column: auto;
+  }
+
+  .af-reset {
+    width: 100%;
+  }
+}

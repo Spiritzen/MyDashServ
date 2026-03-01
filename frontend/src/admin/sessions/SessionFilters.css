@@ -1,0 +1,79 @@
+/* src/admin/sessions/SessionFilters.css */
+
+/* === Session filters : pleine largeur, sans carte === */
+.sf-card{
+  margin: 0 0 16px;          /* plus de centrage auto */
+  padding: 0;               /* enlève l’effet “boîte” */
+  max-width: none;          /* <-- clé : plus de largeur limitée */
+  background: transparent;  /* enlève le fond */
+  border: none;
+  box-shadow: none;
+}
+
+/* Grille 2 colonnes (responsive) */
+.sf-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 14px;
+}
+
+/* champs */
+.sf-field{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sf-label{
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* inputs & selects */
+.sf-input{
+  height: 38px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(20,184,166,.45);
+  background: rgba(20,184,166,.18);
+  color: #fff;
+  outline: none;
+}
+
+.sf-input::placeholder{
+  color: rgba(255,255,255,0.55);
+}
+
+.sf-input:focus{
+  border-color: rgba(20,184,166,.85);
+  box-shadow: 0 0 0 2px rgba(20,184,166,.25);
+}
+
+/* options lisibles */
+.sf-select option{
+  background: #0f766e;
+  color: #ffffff;
+}
+
+/* zone actions en bas (reset + erreur) */
+.sf-actions{
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.sf-error{
+  color: #ffb4b4;
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+/* Mobile */
+@media (max-width: 900px){
+  .sf-card{ max-width: 100%; }
+  .sf-grid{ grid-template-columns: 1fr; }
+  .sf-actions{ justify-content: flex-start; }
+}

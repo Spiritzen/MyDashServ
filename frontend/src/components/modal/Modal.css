@@ -1,0 +1,251 @@
+/* Overlay + fenêtre : style "Ink Red Plumes" */
+.modal-root { position: fixed; inset: 0; z-index: 9999; }
+.modal-overlay{
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.55);
+  backdrop-filter: blur(4px);
+  animation: modalFade .18s ease;
+}
+@keyframes modalFade{ from{opacity:0} to{opacity:1} }
+
+.modal-sheet{
+  position: fixed; inset: 0;
+  display: grid; place-items: center;
+  padding: 24px; /* respire aux bords */
+}
+.modal-window{
+  width: 100%;
+  max-width: 720px;                /* largeur élégante */
+  max-height: min(86vh, 880px);    /* scroll interne si trop haute */
+   background: linear-gradient(
+      135deg,                /* angle haut-gauche → bas-droite */
+      rgba(16, 40, 45, 0.96) 0%,   /* teinte sombre turquoise en haut-gauche */
+      rgba(10, 26, 30, 0.96) 100%  /* plus profond en bas-droite */
+    );
+ border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  overflow: hidden;                /* header/footer fixes, body scroll */
+  display: grid; grid-template-rows: auto 1fr auto;
+  animation: modalPop .18s ease;
+}
+@keyframes modalPop{ from{transform: translateY(6px); opacity:.96} to{transform:none; opacity:1} }
+
+.modal-header{
+  display:flex; align-items:center; justify-content: space-between;
+  gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--stroke);
+}
+.modal-title{ font-size: 1.1rem; font-weight: 800; }
+
+.modal-body{
+  overflow: auto;
+  padding: 14px 16px;
+  /* masquer la barre mais garder le scroll */
+  scrollbar-width: none;           /* Firefox */
+}
+.modal-body::-webkit-scrollbar{ width:0; height:0 }
+
+.modal-footer{
+  display:flex; gap:10px; justify-content:flex-end; align-items:center;
+  padding: 12px 16px; border-top: 1px solid var(--stroke);
+}
+
+/* bouton fermer X */
+.modal-close{
+  display:inline-flex; align-items:center; justify-content:center;
+  width: 36px; height: 36px; border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.06); color: var(--text);
+}
+.modal-close:hover{ background: rgba(255,255,255,.1) }
+
+/* Lock scroll body quand la modale est ouverte */
+.body--lock{ overflow: hidden; }
+
+/* Champs du formulaire (petit raffinement) */
+.form-grid{
+  display:grid; gap:12px;
+  grid-template-columns: 1fr 1fr;
+}
+.form-grid .full{ grid-column: 1/-1; }
+
+/* Optionnel : petit encart d’aide dans les modales */
+.help{
+  color: var(--muted);
+  font-size: .88rem;
+  margin-top: 6px;
+}
+input[readonly], select[aria-readonly="true"]{
+  opacity: .9;
+  cursor: default;
+}
+.modal-actions {
+  margin-top: 16px;
+}
+
+.modal-actions button + button {
+  margin-top: 12px;
+}
+@media (max-width: 720px){
+  .form-grid{ grid-template-columns: 1fr; }
+}
+.help{ color: var(--muted); font-size: .9rem; }
+
+/* ==== Layout du formulaire dans la modale ==== */
+
+/* fenêtre un poil plus large et confortable */
+.modal-window{
+  max-width: 760px;
+  max-height: min(86vh, 900px);
+}
+
+/* grille 2 colonnes avec beaux espacements */
+.form-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;     /* 2 colonnes équilibrées */
+  gap: 14px 16px;                     /* row-gap | column-gap */
+}
+
+/* lignes qui doivent prendre toute la largeur */
+.form-grid .full{ grid-column: 1 / -1; }
+
+/* chaque bloc de champ organisé verticalement */
+.form-grid > div{
+  display: flex;
+  flex-direction: column;
+  min-width: 0;                       /* évite overflow des placeholders longs */
+}
+
+/* labels uniformes et rapprochés du champ */
+.form-grid > div > label{
+  font-weight: 700;
+  font-size: .92rem;
+  margin: 0 0 6px;
+  color: var(--text);
+}
+
+/* inputs selects textareas même hauteur visuelle */
+.form-grid .input{
+  height: 40px;
+  padding: 10px 12px;
+}
+
+/* textarea + comportement */
+.form-grid textarea.input{
+  min-height: 120px;
+  height: auto;
+  line-height: 1.4;
+  resize: vertical;                   /* autorise l’agrandissement au besoin */
+  padding: 10px 12px;
+}
+
+/* aide sous un champ */
+.help{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: .88rem;
+}
+
+/* placer joliment les paires :
+   2: Durée (col1) | 3: Capacité (col2)
+   4: Format (col1) | 5: Lieu (col2)
+   6: Thème (col1)   */
+.form-grid > :nth-child(2){ grid-column: 1; }   /* Durée */
+.form-grid > :nth-child(3){ grid-column: 2; }   /* Capacité */
+.form-grid > :nth-child(4){ grid-column: 1; }   /* Format */
+.form-grid > :nth-child(5){ grid-column: 2; }   /* Lieu  */
+.form-grid > :nth-child(6){ grid-column: 1; }   /* Thème */
+
+/* ligne checkbox (active la formation) — alignement horizontal automatique */
+.form-grid input[type="checkbox"]{
+  width: 18px; height: 18px; margin: 0;
+}
+.form-grid input[type="checkbox"] + label{
+  margin: 0 0 0 8px; font-weight: 600;
+}
+
+/* affiner les number (masquer spin si tu veux un look plus net) */
+.form-grid input[type="number"]::-webkit-outer-spin-button,
+.form-grid input[type="number"]::-webkit-inner-spin-button{
+  -webkit-appearance: none; margin: 0;
+}
+.form-grid input[type="number"] {
+  appearance: textfield;        /* ✅ propriété standard */
+  -moz-appearance: textfield;   /* ✅ pour Firefox */
+  -webkit-appearance: none;     /* ✅ pour WebKit (Chrome/Safari) */
+}
+
+/* select : curseur propre, caret du navigateur */
+.form-grid select.input{
+  appearance: none;
+  background-image: none;
+  cursor: pointer;
+}
+
+/* Responsive : en-dessous de 720px, on passe en 1 colonne fluidement */
+@media (max-width: 720px){
+  .form-grid{ grid-template-columns: 1fr; }
+  /* tous les champs deviennent “full” naturellement */
+  .form-grid > :nth-child(n){ grid-column: 1 / -1; }
+}
+
+/* ===================================================================== */
+/* === Styles spécifiques à la modale Admin Formateurs (scopés)       === */
+/* ===================================================================== */
+
+.afci-admin-formateurs-modal{ min-width:0; }
+.afci-af-title{ margin-top:0; }
+
+/* Empilement vertical (profil, puis compétences) */
+.afci-af-stack{ display:flex; flex-direction:column; gap:16px; }
+
+/* Liste des compétences */
+.afci-af-competences{
+  list-style:none; margin:0; padding:0;
+  display:flex; flex-direction:column; gap:12px;
+}
+
+/* Carte compétence */
+.afci-af-comp-card{
+  border:1px solid var(--stroke);
+  border-radius:12px;
+  padding:12px;
+  background:rgba(255,255,255,0.03);
+  min-width:0;
+}
+.afci-af-comp-head{
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px;
+}
+.afci-af-comp-title{ font-weight:800; }
+.afci-af-comp-stars{ color:var(--muted); }
+
+/* Grille info comp : 2 cols -> 1 col en <720px */
+.afci-af-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; }
+.afci-af-grid .full{ grid-column:1 / -1; }
+/* Hover global des boutons primaires */
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  color: #000000; /* texte noir */
+}
+@media (max-width: 720px){ .afci-af-grid{ grid-template-columns:1fr; } }
+
+/* Docs */
+.wrap,.doc-name{ word-break:break-word; }
+.afci-af-docs{ margin-top:8px; }
+.afci-af-docs-list{
+  list-style:none; margin:6px 0 0; padding:0;
+  display:flex; flex-direction:column; gap:6px;
+}
+
+/* Ligne doc = infos + actions */
+.afci-af-doc-row{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  border-bottom:1px dashed var(--stroke);
+  padding:6px 0;
+}
+.afci-af-doc-main{ min-width:0; }
+.doc-meta{ color:var(--muted); margin-left:6px; }
+
+/* Actions doc */
+.afci-af-doc-actions{ display:flex; gap:8px; flex-shrink:0; }
+.btn--xs{ padding:4px 8px; font-size:.86rem; border-radius:8px; }

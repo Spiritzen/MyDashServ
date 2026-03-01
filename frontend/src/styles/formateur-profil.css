@@ -1,0 +1,173 @@
+/* container plus étroit et centré */
+.profil {
+  display: grid;
+  gap: 16px;
+  max-width: 1100px;   /* ✅ limite la largeur pour éviter l’effet “océan vide” */
+  margin-inline: auto; /* ✅ centre dans la zone principale */
+}
+
+/* ----- Desktop : grille 2 colonnes ----- */
+@media (min-width: 1100px) {
+  .profil {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  /* Le header reste en pleine largeur */
+  .profil__head {
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+
+  /* 1) Identité à gauche, 2) Coordonnées à droite, 3) Compte pleine largeur */
+  .profil > .panel:nth-of-type(1) { grid-column: span 1; }
+  .profil > .panel:nth-of-type(2) { grid-column: span 1; }
+  .profil > .panel:nth-of-type(3) { grid-column: 1 / -1; }
+
+  /* Dans les deux cartes en demi-largeur, on remet les paires clé/valeur sur 1 colonne
+     (sinon 2 colonnes *à l'intérieur* d'une demi-colonne = trop serré visuellement) */
+  .profil > .panel:nth-of-type(1) .kv,
+  .profil > .panel:nth-of-type(2) .kv {
+    grid-template-columns: 1fr;
+  }
+
+  /* Option douceur: un padding un poil plus serré sur desktop */
+  .profil > .panel {
+    padding: 16px 18px; /* adapte si tu as une classe .panel avec un gros padding par défaut */
+  }
+}
+
+/* ----- Styles existants (inchangés) ----- */
+.profil__head { display: flex; align-items: center; gap: 12px; }
+.badge-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.badge {
+  display:inline-block; padding:4px 10px; border-radius:999px;
+  font-size:12px; border:1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+}
+.badge--ok { border-color: rgba(24,214,200,.45); background: rgba(24,214,200,.12); }
+.badge--warn { border-color: rgba(240,180,60,.45); background: rgba(240,180,60,.12); }
+
+.panel__head { display:flex; align-items:center; justify-content:space-between; gap: 8px; margin-bottom:8px; }
+.panel__actions { display:flex; gap:8px; }
+
+.icon-btn {
+  border:1px solid var(--stroke, rgba(255,255,255,0.12));
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px; padding: 6px 10px; cursor: pointer; color: inherit;
+}
+.icon-btn:hover { border-color: var(--primary, #18d6c8); }
+
+.kv { display:grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; }
+.kv .full { grid-column: 1 / -1; }
+.kv dt { opacity:.75; font-size: 13px; }
+.kv dd { margin: 0; font-weight: 600; }
+
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid2 .full { grid-column: 1 / -1; }
+
+.field { display:flex; flex-direction:column; gap:6px; }
+.input {
+  width:100%; height:44px; border-radius:10px; padding:0 12px;
+  border:1px solid var(--stroke, rgba(255,255,255,0.12));
+  background: rgba(255,255,255,0.04); color:inherit;
+}
+.input:focus { border-color: var(--primary, #18d6c8); outline: none; box-shadow: 0 0 0 2px rgba(24,214,200,0.15); }
+
+.help { font-size:12px; opacity:.7; }
+.muted { opacity:.75; }
+
+.rg-alert { padding:10px 12px; border-radius:10px; font-size:14px; }
+.rg-alert--error { background: rgba(220, 53, 69, .15); border: 1px solid rgba(220, 53, 69, .4); }
+.form-side__name{
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.form-side__avatar{
+  width: 24px; height: 24px; border-radius: 50%;
+  object-fit: cover; border: 1px solid rgba(255,255,255,.18);
+}
+/* ==== Identité : split infos à gauche / avatar à droite ==== */
+.identite-grid{
+  display: grid;
+  grid-template-columns: 1fr 220px;  /* infos | avatar */
+  gap: 16px;
+  align-items: start;
+}
+
+/* Carte avatar (rond) */
+.identite-avatar{
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+}
+
+.avatar-round{
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;                 /* masque le carré -> rond */
+  border: 2px solid rgba(255,255,255,.14);
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+  background: rgba(255,255,255,.04);
+  position: relative;
+}
+.avatar-round img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                 /* couvre bien le cercle */
+  display: block;
+}
+
+/* petit indicateur si upload en cours */
+.avatar-busy{
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  background: rgba(0,0,0,.35);
+  font-weight: 700;
+  border-radius: 50%;
+}
+
+/* bouton "Changer de photo" sous l’avatar */
+.avatar-actions--under{
+  display: grid;
+  justify-items: center;
+}
+/* === Avatar taille contrôlée dans la carte "Identité" === */
+.panel .avatar {
+  width: 120px;              /* passe à 50px si tu veux vraiment tout petit */
+  height: 120px;
+  border-radius: 50%;
+  overflow: hidden;          /* masque pour obtenir un rond parfait */
+  border: 2px solid rgba(255,255,255,.14);
+  box-shadow: 0 6px 20px rgba(0,0,0,.25);
+}
+
+.panel .avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* remplit le rond sans déformation */
+  display: block;
+}
+
+/* option: un peu plus petit sur mobile */
+@media (max-width: 900px){
+  .panel .avatar { width: 96px; height: 96px; }
+}
+
+/* Responsive : avatar passe en dessous à partir de 900px */
+@media (max-width: 900px){
+  .identite-grid{
+    grid-template-columns: 1fr;
+  }
+  .identite-avatar{
+    justify-items: start;
+  }
+  .avatar-round{ width: 160px; height: 160px; }
+}
+
+/* Mobile inchangé */
+@media (max-width: 860px){
+  .kv { grid-template-columns: 1fr; }
+  .grid2 { grid-template-columns: 1fr; }
+}

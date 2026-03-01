@@ -1,0 +1,260 @@
+/* ===== Admin Formations – clean & cohérent ===== */
+
+/* Header : même layout que Sessions, sans override de couleurs */
+.admin-head{
+  display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+  margin-bottom:18px;
+}
+.admin-head__left h1{ margin:0 0 6px 0; line-height:1.2; }
+.admin-head__right{ display:flex; align-items:center; gap:12px; }
+
+/* Filtres : grille respirante */
+.filters{
+  display:grid;
+  grid-template-columns: minmax(260px,1.2fr) repeat(4, minmax(160px,1fr)) minmax(120px,.6fr);
+  gap:10px; align-items:center; margin-bottom:14px;
+}
+.filters .input{ height:38px; }
+
+.filters select.input{
+  color: #ffffff;                              /* texte blanc */
+  background: rgba(20,184,166,.25);            /* teal translucide */
+  border: 1px solid rgba(20,184,166,.45);      /* même teinte que le CTA */
+}
+.filters select.input:hover{
+  background: rgba(20,184,166,.32);
+}
+.filters select.input:focus{
+  outline: none;
+  border-color: rgba(20,184,166,.85);
+  box-shadow: 0 0 0 2px rgba(20,184,166,.35);
+}
+
+/* menu déroulant (selon navigateur) */
+.filters select.input option{
+  background: #0f766e;   /* teal foncé lisible */
+  color: #ffffff;        /* texte blanc */
+}
+
+/* survol d'un item (supporté surtout Chromium/WebKit) */
+@supports selector(option:hover){
+  .filters select.input option:hover{
+    color: #cbd5e1;      /* gris clair au hover */
+  }
+}
+
+/* état sélectionné (quand la liste est ouverte) */
+.filters select.input option:checked{
+  color: #e5e7eb;        /* très légèrement grisé pour se distinguer */
+  background: #115e59;   /* un cran plus sombre */
+}
+/* Wrapper table : pas de double fond, on conserve le panel global */
+.tbl-wrap{
+  overflow:auto; width:100%;
+  margin-left:auto; margin-right:auto; /* centré H */
+}
+
+/* Table : quadrillage discret + pleine largeur */
+.tbl{
+  width:100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+  background: transparent;        /* pas de couche sombre en plus */
+}
+
+/* Header collant si overflow */
+.tbl thead th{
+  position: sticky; top: 0;
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+/* Cellules & quadrillage */
+.tbl th, .tbl td{
+  padding:12px 14px; vertical-align: middle; line-height:1.3;
+  border-right: 1px solid rgba(255,255,255,0.06);   /* vertical */
+  border-bottom: 1px solid rgba(255,255,255,0.06);  /* horizontal */
+}
+.tbl th:last-child, .tbl td:last-child{ border-right:none; }
+.tbl tbody tr:last-child td{ border-bottom:none; }
+
+/* Bouton de tri */
+.th-sort{
+  all: unset; cursor: pointer; display:inline-flex; align-items:center; gap:8px;
+  font-weight:600; padding:6px 8px; border-radius:8px;
+}
+.th-sort:hover{ background: rgba(255,255,255,0.06); }
+
+/* Hover ligne */
+.tbl tbody tr:hover td{ background: rgba(255,255,255,0.03); }
+
+/* --------- Colonne Actions : centrage H/V + cohérence hauteur --------- */
+.tbl th.tbl-actions,
+.tbl td.tbl-actions{
+  text-align:center;              /* centre horizontalement */
+  vertical-align:middle;          /* centre verticalement */
+  padding:12px 14px;
+}
+.tbl thead th.tbl-actions{
+  display:table-cell;             /* même modèle de boîte que les autres th */
+  text-align:center; vertical-align:middle;
+}
+
+/* Actions : centrées dans la cellule */
+.actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;         /* <-- centré (au lieu de flex-end) */
+  gap:8px; flex-wrap:wrap;
+}
+
+/* Petits boutons d’action : lisibles & compacts */
+.btn--action{
+  display:inline-flex; align-items:center; gap:8px;
+  height:34px; padding:0 10px; border-radius:10px;
+}
+.btn--action svg{
+  display:block; fill: currentColor; opacity:.9;
+}
+.btn-label{ display:inline; }
+/* ===== Pagination : compacte, centrée, sans débordement ===== */
+.pager{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  padding:14px 12px 10px;
+
+  /* IMPORTANT : éviter que ça colle au scroll horizontal du tableau */
+  width:100%;
+  max-width: 780px;      /* ajuste si tu veux plus large */
+  margin: 0 auto;        /* centre le bloc */
+  flex-wrap: wrap;       /* si petit écran, ça passe à la ligne */
+}
+
+/* Le select ne doit jamais s'étirer */
+.pager select.input,
+.pager .pager__size{
+  width: auto !important;
+  min-width: 120px;
+  flex: 0 0 auto;
+}
+
+/* Sur petit écran : encore plus compact */
+@media (max-width: 520px){
+  .pager{ max-width: 100%; }
+  .pager select.input{ min-width: 110px; }
+}
+
+@media (max-width:1100px){
+  .btn-label{ display:none; }     /* petit écran : icônes seules */
+}
+
+/* Badges (si pas déjà globaux) */
+.bdg{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:4px 10px; border-radius:999px; font-size:.875rem; border:1px solid transparent;
+}
+.bdg--ok{ background:rgba(16,185,129,.15); color:#9AE6B4; border-color:rgba(16,185,129,.25); }
+.bdg--ko{ background:rgba(239,68,68,.12); color:#FCA5A5; border-color:rgba(239,68,68,.22); }
+
+/* Pagination centrée (sans modifier les boutons globaux) */
+.pager{
+  display:flex; align-items:center; justify-content:center;
+  gap:10px; padding:12px 4px 4px;
+}
+/* Entêtes centrés */
+.tbl thead th {
+  text-align: center;
+}
+
+/* Données alignées à gauche (par défaut) */
+.tbl tbody td {
+  text-align: left;
+}
+
+/* Colonne Actions : boutons vraiment centrés */
+.tbl td.tbl-actions .actions {
+  justify-content: center !important; /* au cas où une règle globale prend le dessus */
+}
+.pager__size { width: auto; min-width: 120px; flex: 0 0 auto; }
+/* ------- Mobile / petits écrans ------- */
+@media (max-width: 900px) {
+  /* Filtres : une seule colonne, boutons full width si besoin */
+  .filters {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .filters .btn { width: 100%; }
+
+  /* Scroll tactile fluide si on garde l'affichage table */
+  .tbl-wrap {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Mode carte : on masque l'en-tête, chaque <tr> devient une "card" lisible */
+  .tbl thead {
+    display: none;
+  }
+  .tbl,
+  .tbl tbody,
+  .tbl tr,
+  .tbl td {
+    display: block;
+    width: 100%;
+  }
+
+  /* Chaque ligne = carte */
+  .tbl tbody tr {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 10px 10px 6px;
+    margin: 10px 0;
+  }
+
+  /* Chaque cellule = ligne label/valeur */
+  .tbl td {
+    border: none !important;
+    padding: 8px 4px;
+  }
+  .tbl td::before {
+    content: attr(data-label);
+    display: block;
+    font-size: 1.5rem;
+    opacity: 0.8;
+    margin-bottom: 2px;
+    text-decoration: underline;
+  }
+
+  /* Statut un peu plus aéré */
+  .tbl td [class^="bdg"] {
+    margin-top: 4px;
+  }
+
+  /* Actions centrées + bouton pleine largeur si manque de place */
+  .tbl td.tbl-actions .actions {
+    justify-content: center !important;
+    gap: 10px;
+  }
+  .tbl td.tbl-actions .btn--action {
+    min-width: 42%;
+    justify-content: center;
+  }
+
+  /* Pagination : marges verticales */
+  .pager {
+    padding: 16px 0 4px;
+  }
+}
+
+/* ------- Très petits écrans ------- */
+@media (max-width: 480px) {
+  .tbl td.tbl-actions .btn--action {
+    min-width: 100%;        /* 1 par ligne */
+  }
+  .btn-label { display: none; } /* icônes seules pour gagner de la place */
+}

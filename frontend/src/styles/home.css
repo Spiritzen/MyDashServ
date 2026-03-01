@@ -1,0 +1,251 @@
+/* structure */
+.home{ padding-top: var(--header-h); padding-bottom: var(--footer-h) }
+.home__aside{
+  position: fixed; top: var(--header-h); bottom: var(--footer-h); left:0;
+  width: var(--aside-w); padding:20px; overflow:auto;
+  background: radial-gradient(900px 600px at 0% 0%, rgba(255,255,255,.06) 0%, transparent 60%),
+              linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+  border-right: 1px solid rgba(255,255,255,.08);
+  backdrop-filter: blur(6px);
+}
+.home__content{
+  margin-left: var(--aside-w);
+  min-height: calc(100vh - var(--header-h) - var(--footer-h));
+  padding: 28px clamp(16px, 3vw, 40px);
+  background: linear-gradient(180deg, #0a1f24 0%, #0b2026 100%);
+}
+
+/* aside */
+.aside__brand{ display:grid; grid-template-columns:56px 1fr; gap:12px; align-items:center; margin-bottom:16px }
+.brand__logo{ width:56px; height:56px; border-radius:14px }
+.brand__title{ margin:0; font-size:20px }
+.brand__tag{ margin:2px 0 0; color:var(--muted); grid-column:2 }
+
+.aside__block{ background:var(--panel); border:1px solid var(--stroke); border-radius:16px; padding:14px; margin-top:14px; box-shadow:var(--shadow) }
+.aside__title{ margin:0 0 8px; font-size:14px; color:var(--muted); letter-spacing:.3px }
+.aside__text{ margin:0; color:#d7eef0 }
+.aside__time{ margin-top:10px; padding:10px; border-radius:12px; background:var(--card); border:1px solid var(--stroke); display:flex; align-items:center; justify-content:space-between }
+.time__label{ color:var(--muted); font-size:12px }
+.time__value{ font-variant-numeric: tabular-nums }
+
+/* hero / features / cta */
+.hero{
+  display:grid; grid-template-columns:1.2fr .8fr; align-items:center; gap:24px;
+  background:var(--panel); border:1px solid var(--stroke); border-radius:24px;
+  padding: clamp(18px, 3vw, 28px); box-shadow: var(--shadow);
+}
+.hero__title{ margin:0 0 8px; font-size: clamp(22px, 2.4vw, 32px) }
+.hero__subtitle{ margin:0 0 16px; color:var(--muted) }
+.hero__actions{ display:flex; gap:12px; flex-wrap:wrap }
+.hero__art img{ width:100%; height:auto; display:block; filter: drop-shadow(0 20px 25px rgba(0,0,0,.3)) }
+.hero__lead { margin-bottom: 16px; }
+/* --- Hero : gradient directionnel "qui monte" --- */
+.hero{
+  position: relative;            /* pour l'overlay */
+  overflow: hidden;              /* garde les coins arrondis propres */
+}
+
+/* Overlay dégradé : plus clair en haut-gauche → plus foncé en bas-droite */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+
+  background:
+    /* halo clair haut-gauche */
+    radial-gradient(
+      700px 500px at 0% 0%,
+      rgba(24, 214, 200, 0.14) 0%,
+      rgba(24, 214, 200, 0.00) 60%
+    ),
+    /* dégradé directionnel plus riche (6 stops) */
+      linear-gradient(
+      135deg,
+      rgba(255,255,255,0.08) 0%,       /* éclat blanc diffus */
+      rgba(24,214,200,0.06) 12%,       /* halo turquoise léger */
+      rgba(11,32,38,0.04) 25%,         /* première transition douce */
+      rgba(6,20,25,0.06) 40%,          /* teinte moyenne */
+      rgba(4,14,20,0.08) 55%,          /* ombre légère */
+      rgba(3,10,16,0.10) 70%,          /* contraste subtil */
+      rgba(2,8,12,0.13) 82%,           /* ombre soutenue */
+      rgba(1,4,8,0.17) 92%,            /* fondu foncé */
+      rgba(0,0,0,0.22) 100%            /* profondeur finale */
+    );
+
+  /* flou interne léger */
+  backdrop-filter: blur(30px) saturate(1.05);
+  -webkit-backdrop-filter: blur(30px) saturate(1.05);
+}
+
+
+/* Assure le contenu au-dessus de l'overlay */
+.hero > *{ position: relative; z-index: 1; }
+/* === Cartes "Features" centrées verticalement === */
+.features{
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  align-items: stretch;             /* toutes la même hauteur */
+}
+
+/* base (utile si une carte n'a pas d'image de fond) */
+.feature{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:20px;
+  padding:18px;
+  box-shadow:var(--shadow);
+}
+
+/* variantes communes (avec ou sans bg image) */
+.feature,
+.feature--withbg{
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid var(--stroke);
+  box-shadow: var(--shadow);
+  min-height: 160px;                /* hauteur cible */
+  display: grid;                    /* sert au centrage */
+}
+
+/* image de fond via variable */
+.feature--withbg::before{
+  content: "";
+  position: absolute; inset: 0;
+  background-image: var(--feature-bg);
+  background-size: cover;
+  background-position: center;
+  filter: saturate(1.05) contrast(1.05);
+  transform: scale(1.02);
+}
+
+/* overlay sombre pour la lisibilité du texte */
+.feature--withbg::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55));
+}
+
+/* contenu centré verticalement */
+.feature__body{
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  padding: 18px;
+  display: grid;
+  align-content: center;            /* ✅ centre vertical */
+  gap: 6px;
+  color: #eaf4f6;
+  text-shadow: 0 1px 2px rgba(0,0,0,.35);
+}
+/* Badge de rôle sur les cartes features */
+.feature__badge {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--stroke, rgba(255,255,255,0.15));
+  background: rgba(255,255,255,0.06);
+  margin-bottom: 8px;
+  letter-spacing: .2px;
+  opacity: .95;
+}
+.feature__title{ margin: 0 }
+.feature__text{ margin: 0; color: #d4ecef; opacity: .95 }
+
+/* hover premium */
+.feature--withbg:hover::before{
+  transform: scale(1.06);
+  transition: transform .35s ease;
+}
+.feature--withbg:hover{ border-color: rgba(255,255,255,.25) }
+
+.cta{
+  margin-top:18px;
+  background: var(--panel);
+  border-radius: 20px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.cta__actions{ display:flex; gap:12px; justify-content:center; margin-top:10px }
+.cta::after{
+  content:"";
+  position:absolute; inset:0;
+  border-radius: 20px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);  /* 🔥 fin et propre */
+  pointer-events:none;
+}
+/* calendar */
+.cal{ user-select:none }
+.cal__head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px }
+.cal__title{ font-weight:700; text-transform:capitalize }
+.cal__nav{ inline-size:32px; block-size:32px; border-radius:8px; border:1px solid var(--stroke); background:var(--card); color:var(--text); cursor:pointer }
+.cal__grid{ display:grid; grid-template-columns: repeat(7, 1fr); gap:6px }
+.cal__grid--header{ margin-bottom:6px }
+.cal__cell{ aspect-ratio:1/1; display:grid; place-items:center; border-radius:10px; background:#0d2630; border:1px solid #174854; font-variant-numeric: tabular-nums }
+.cal__cell--dow{ aspect-ratio:auto; padding:6px 0; background:transparent; border:none; color:var(--muted); font-size:12px }
+.cal__cell.is-today{ outline:2px solid var(--accent); background:#103741 }
+
+.field span{ display:block; margin:4px 0 6px; color:var(--muted); font-weight:600 }
+.field input{
+  width:100%; padding:12px 14px; border-radius:12px;
+  border:1px solid var(--stroke); background:var(--card); color:var(--text);
+  outline:none;
+}
+.field input:focus{ border-color:var(--accent-2); box-shadow: var(--shadow) }
+/* responsive */
+@media (max-width:980px){
+  :root{ --aside-w: 280px }
+  .hero{ grid-template-columns: 1fr }
+}
+/* --- Mobile: mettre la carte d'inscription AVANT la colonne gauche --- */
+@media (max-width: 900px) {
+  /* on passe le layout en colonne pour ce contexte */
+  .home.home--auth {
+    display: flex !important;          /* au cas où .home soit en grid */
+    flex-direction: column;
+    gap: 16px;                          /* petit espace entre les blocs */
+  }
+
+  /* la carte d'inscription (colonne droite) en premier */
+  .home.home--auth > .home__content {
+    order: 1;
+  }
+
+  /* la colonne gauche (HomeLeft) en deuxième */
+  .home.home--auth > aside {
+    order: 2;
+  }
+
+  /* confort: éviter une carte trop large sur mobile */
+  .register-card {
+    max-width: 100%;
+  }
+}
+@media (max-width:720px){
+  .home__aside{ position: static; width:auto; height:auto; border-right:0; margin:0 16px }
+  .home__content{ margin-left:0; padding-top:8px }
+  .features{ grid-template-columns: 1fr }
+}
+/* --- Mobile: mettre HomeRight AVANT HomeLeft sur la page d'accueil --- */
+@media (max-width: 900px) {
+  .home.home--right-first {
+    display: flex !important;   /* au cas où .home soit en grid */
+    flex-direction: column;
+    gap: 16px;
+  }
+  /* HomeRight (contenu) en premier */
+  .home.home--right-first > .home__content {
+    order: 1;
+  }
+  /* HomeLeft (aside) en second */
+  .home.home--right-first > .home__aside {
+    order: 2;
+  }
+}

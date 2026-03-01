@@ -1,0 +1,29 @@
+// src/api/axiosClient.js
+import axios from "axios";
+
+const axiosClient = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080",
+  withCredentials: false, // garde false si tu es en JWT côté back (pas de cookies)
+  headers: { "Content-Type": "application/json" },
+});
+
+// 🔐 Ajout auto du Bearer token si présent
+axiosClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("auth_token");
+  if (token) config.headers.Authorization = `Bearer ${token}`;
+  return config;
+});
+
+// 🚫 Si 401 -> on nettoie le storage (le routeur redirigera)
+axiosClient.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err?.response?.status === 401) {
+      localStorage.removeItem("auth_token");
+      localStorage.removeItem("auth_user");
+    }
+    return Promise.reject(err);
+  }
+);
+
+export default axiosClient;
