@@ -87,11 +87,11 @@ https://spiritzen.github.io/portfolio/
 
 ### Backend
 
-```bash
+### bash
 cd backend
 mvn spring-boot:run
 
-```front
+### front
 cd frontend
 npm install
 npm run dev
