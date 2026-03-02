@@ -3,6 +3,11 @@
 > Fullstack business application built with React (Vite) & Spring Boot.  
 > Designed to manage complex scheduling logic, multi-role workflows and secure REST communication.
 
+
+<p align="center">
+  <img src="assets/exemple.jpg" width="950"/>
+</p>
+
 ---
 
 ## 🧠 Business Context
